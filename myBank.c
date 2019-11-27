@@ -11,6 +11,7 @@ void open(double amount)
     }
     else if (count < 50)
     {
+        amount=twoDigits(amount);
         accounts[count][0] = 1;
         accounts[count][1] = amount;
         count++;
@@ -24,7 +25,8 @@ void open(double amount)
 
 void balance(int num)
 {
-    if (accounts[num - 901][0] != 1)
+    if(num>950 || num<901) printf("Wrong account number.");
+    else if (accounts[num - 901][0] != 1)
     {
         printf("This account number is close\n");
     }
@@ -39,7 +41,7 @@ void deposit(int num, double amount)
     if(num>950 || num<901){
         printf("There is no acount with this number\n");
     }
-    if (amount < 0)
+    else if (amount < 0)
     {
         printf("Your deposit sum must be positive\n");
     }
@@ -49,12 +51,17 @@ void deposit(int num, double amount)
     }
     else
     {
-        printf("Your balance is: %lf\n", accounts[num - 901][1] + amount);
+        amount=twoDigits(amount);
+        accounts[num - 901][1]=accounts[num - 901][1] + amount;
+        printf("Your balance is: %lf\n", accounts[num - 901][1]);
     }
 }
 
 void withdrawal(int num, double amount)
 {
+    if(num>950 || num<901){
+        printf("There is no acount with this number\n");
+    }
     if (amount < 0)
     {
         printf("Your withdrawal sum must be positive\n");
@@ -69,12 +76,17 @@ void withdrawal(int num, double amount)
     }
     else
     {
-        printf("Your balance is: %lf\n", accounts[num - 901][1] - amount);
+        amount=twoDigits(amount);
+        accounts[num - 901][1]=accounts[num - 901][1] - amount;
+        printf("Your balance is: %lf\n", accounts[num - 901][1]);
     }
 }
 
 void close(int num)
 {
+    if(num>950 || num<901){
+        printf("There is no acount with this number\n");
+    }
     if (accounts[num - 901][0] != 1)
     {
         printf("This account number is close\n");
@@ -103,7 +115,7 @@ void print()
     {
         if (accounts[i][0] == 1)
         {
-            printf("The balance of account %d is: %lf\n", i + 901, accounts[i][1]);
+            printf("The balance of account %d is: %.2lf\n", i + 901, accounts[i][1]);
         }
     }
 }
@@ -119,4 +131,11 @@ void exit1()
         }
     }
     printf("All accounts were closed\n");
+}
+
+double twoDigits(double amount){
+    int temp=amount*100;
+        amount=temp;
+        amount=amount/100;
+        return amount;
 }
