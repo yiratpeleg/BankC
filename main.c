@@ -3,13 +3,13 @@
 
 int main()
 {
-    char c=' ';
+    char c=' ';                                                    //the action the user choose
     int aNum =0;                                                   //account number
     double dSum=0;                                                 //deposit sum
     double wSum=0;                                                 //withdrawal sum
     double in=0;                                                   //interest rate
-    int x=0;
-    int y=0;
+    int x=0;                                                       //save the quantity of scanf success
+    int y=0;                                                       //save the quantity of scanf success
 
   
     while (c != 'E')

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "myBank.h"
 
+double twoDigits(double amount);
+double accounts[ACOUNTS][STATUS]={0};
 int count = 0;
 
 void open(double amount)
@@ -104,7 +106,7 @@ void interest(double in)
     {
         if (accounts[i][0] == 1)
         {
-            accounts[i][1] += ((in * accounts[i][1]) / 100);
+            accounts[i][1] += twoDigits((in * accounts[i][1]) / 100);
         }
     }
 }
@@ -115,7 +117,7 @@ void print()
     {
         if (accounts[i][0] == 1)
         {
-            printf("The balance of account %d is: %.2lf\n", i + 901, accounts[i][1]);
+            printf("The balance of account %d is: %lf\n", i + 901, accounts[i][1]);
         }
     }
 }

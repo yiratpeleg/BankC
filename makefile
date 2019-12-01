@@ -1,7 +1,7 @@
 CC=gcc
 FLAGS= -Wall -g
 
-all:myBanks myBanks mains maind
+all:myBanks BankExe
 
 libmyBank.a:myBank.o myBank.h
 	ar rcs libmyBank.a myBank.o myBank.h
@@ -9,18 +9,10 @@ libmyBank.a:myBank.o myBank.h
 myBank.o:myBank.c myBank.h
 	$(CC) $(FLAGS) -fPIC -c myBank.c
 
-libmyBank.so:myBank.o myBank.h 
-	$(CC) -shared -fPIC -o libmyBank.so myBank.o myBank.h
+BankExe:libmyBank.a main.o myBank.h
+	$(CC) $(FLAGS) -fPIC -o BankExe main.o libmyBank.a myBank.h
 
-mains:libmyBank.a main.o myBank.h
-	$(CC) $(FLAGS) -fPIC -o mains main.o libmyBank.a myBank.h
-
-maind:libmyBank.so main.o myBank.h
-	$(CC) $(FLAGS) -fPIC -o maind main.o ./libmyBank.a
-	
 myBanks:libmyBank.a
-
-myBankd:libmyBank.so
 
 main.o:main.c myBank.h
 	$(CC) $(FLAGS) -fPIC -c main.c
@@ -28,4 +20,4 @@ main.o:main.c myBank.h
 .PHONY: clean all	
 
 clean:
-	rm -f *.o *.so *.a maind mains
+	rm -f *.o *.so *.a BankExe
